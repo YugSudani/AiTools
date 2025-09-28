@@ -1,0 +1,13 @@
+'/root : npm init -> //this can be used to start both server and client together'
+'/ npx create-react-app client'
+'/ server npm init'
+
+'/server npm i dotenv'
+'/server npm i node-fetch'
+
+
+
+
+-____________--->>> currently monthly token is over due to max usage , creade 2nd account or find another AI API provider
+-____________--->>> image takes much tokens
+-____________--->>> apply lock before deploying
