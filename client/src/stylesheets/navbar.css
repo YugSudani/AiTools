@@ -1,0 +1,88 @@
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.logo span {
+  color: var(--text);
+}
+
+.nav ul {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a,
+.nav .Link {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.nav a:hover,
+.nav a.active,
+.nav .Link:hover,
+.nav .Link.active {
+  color: var(--primary);
+}
+
+/* Hamburger button */
+.menu-toggle {
+  display: none;              /* ✅ hidden by default (desktop/laptop) */
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+/* ✅ On phones: show hamburger, dropdown menu aligned properly */
+@media (max-width: 600px) {
+  .menu-toggle {
+    display: flex; /* only visible on small screens */
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%; /* directly below header */
+    right: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 8px;
+  }
+
+  .nav.open {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+}
