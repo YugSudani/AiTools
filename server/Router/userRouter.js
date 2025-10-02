@@ -33,7 +33,7 @@ router.post('/login', async (req,res)=>{
         if(uid){
             setUser(uid,user);
             // res.cookie("UID",uid);
-             res.cookie('UID',UID , 
+             res.cookie('UID',uid , 
                          {
                           httpOnly: true,
                           secure: true,  // if deployed over https
