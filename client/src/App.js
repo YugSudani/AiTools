@@ -17,7 +17,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="summarize" element={<Summarize />} />
-          <Route path="contentWriter" element={<ContentCreatio />} />
+          <Route path="contentWriter" element={<ContentCreation />} />
           <Route path="text-img" element={<ImgToText />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
