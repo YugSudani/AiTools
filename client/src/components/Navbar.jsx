@@ -21,7 +21,7 @@ const Navbar=()=>{
   const location = useLocation(); 
 
   useEffect(()=>{
-    if(document.cookie){
+    if(document.cookie.includes("UID=")){
       setIslogin(true);
       const name = sessionStorage.getItem('name')?.split(/[0-9]/)
       setUserName(name !=null ? name[0]:'user');
