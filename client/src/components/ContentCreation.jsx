@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import '../stylesheets/contentWriter.css'
+import { ToastContainer, toast } from 'react-toastify';
 
 const ContentCreation=()=>{
 
     const [txt,setTxt] = useState(null);
     const [output,setOutput] = useState('No content yet. Submit your text to generat Output.');
     const [loading,setLoading] = useState(false);
+
+    const Warn=(msg)=> toast.warning(msg);
+    const Err=(msg)=> toast.error(msg);
 
     const handleChange=(e)=>{
         setTxt(e.target.value)
@@ -30,9 +34,12 @@ const ContentCreation=()=>{
             if(res.status === 'ok')
             {
                 setOutput(res.output_contentText.choices[0]?.message.content);
-                console.log(res.output_contentText)
-            }else{
-                alert("Something went wrong");
+                //console.log(res.output_contentText)
+            }else if(res.msg === "notLogin"){     // from middleware
+                Warn("Login to Proceed");
+            }
+            else{
+                Err("Something went Wrong");
             }
         } catch (error) {
                 setOutput("Error fetching summary");
@@ -59,6 +66,7 @@ const ContentCreation=()=>{
 
     return(
         <> 
+            <ToastContainer/>
                 <main className="container content-section">
                     <h4 className="section-title">📝 AI Content Creation</h4>
                     <p className="section-subtitle">Create content here and let AI do the writing magic.</p>
@@ -68,7 +76,7 @@ const ContentCreation=()=>{
                     <button onClick={handleSubmit} id="submit-btn">Send Text</button>
 
                     <p id="output" className="output-box">
-                        {loading ? <h3>Generating...</h3>: <p
+                        {loading ? <h3>Generating...</h3>: <i
                         name="output"
                         dangerouslySetInnerHTML={{ __html: formatMarkdown(output) }}
                         />} 

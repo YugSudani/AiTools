@@ -9,6 +9,10 @@ const cookieParser = require("cookie-parser");
 
 const cors = require('cors');
 
+const { connectDB } = require("./connectDB");
+const mongoURI = process.env.mongoURI;
+
+connectDB(mongoURI);
 
 app.use(cookieParser());
 app.use(express.json());
@@ -21,7 +25,13 @@ app.use(cors({
 }))
 
 const summaryRouter = require("./Router/summaryRouter");
+const userrouter = require('./Router/userRouter');
+const adminRouter = require('./Router/adminRouter');
+const isLogin = require("./middlewares/isLogin");
+const isAdmin = require('./middlewares/isAdmin');
 
-app.use("/AI",summaryRouter);
+app.use("/user",userrouter);
+app.use("/AI",isLogin,summaryRouter);
+app.use("/admin",isAdmin,adminRouter); 
 
 app.listen(PORT,()=>console.log("NodeJS Server Started . . . "));

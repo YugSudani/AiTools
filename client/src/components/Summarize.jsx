@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-
 import "../stylesheets/summarizer.css"
+import { ToastContainer, toast } from 'react-toastify';
 
 const Summarize=()=>{
+
+    const Warn=(msg)=> toast.warning(msg);
+    const Err=(msg)=> toast.error(msg);
 
     const [txt,setTxt] = useState(null);
     const [outputSummary,setOutputSummary] = useState('No summary yet. Enter your text and click “Summarize Text” to get started');
@@ -31,8 +34,10 @@ const Summarize=()=>{
             {
                 setOutputSummary(res.output_summary.choices[0]?.message.content);
                 // console.log(res.output_summary)
+            }else if(res.msg === "notLogin"){     // from middleware
+                Warn("Login to Proceed");
             }else{
-                alert("Something went wrong");
+                Err("Something went Wrong");
             }
         } catch (error) {
             setOutputSummary("Error fetching summary");
@@ -59,6 +64,7 @@ const Summarize=()=>{
 
     return(
         <>
+          <ToastContainer/>
             <div className="app">
             <header className="app-header">
               <h1 className="title">AI Summarizer</h1>
@@ -75,7 +81,7 @@ const Summarize=()=>{
                 </div>
 
                 <div className="card-body">
-                  <label for="input-text" className="sr-only">Paste your text</label>
+                  <label htmlFor="input-text" className="sr-only">Paste your text</label>
                   <textarea
                     id="input-text"
                     className="text-input"

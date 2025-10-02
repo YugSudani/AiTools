@@ -1,0 +1,13 @@
+'/root : npm init -> //this can be used to start both server and client together'
+'/ npx create-react-app client'
+'/ server npm init'
+
+'/server npm i dotenv'
+
+
+
+
+after this we'll have to restrict user from using AIservices much after login 
+
+
+

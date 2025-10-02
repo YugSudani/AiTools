@@ -4,8 +4,11 @@ const router = express.Router();
 const AImodelbaseURL = process.env.AImodelbaseURL;
 const huggingfaceToken = process.env.huggingfaceToken 
 
+const { getUser } = require("../services/userMap");
+const usermodel = require("../models/usermodel");
+
 router.post("/summarizeText", async(req,res)=>{
-    console.log("Provide input to summarize");
+    //console.log("Provide input to summarize");
     const text = req.body.text
     
     const prompt = {
@@ -37,10 +40,21 @@ router.post("/summarizeText", async(req,res)=>{
         res.json({status:"fail" , output_summary:"Invalid operation"})
     }
 
+
+    // storing history
+    const user = getUser(req.cookies.UID);
+    const name = user.name;
+    try {
+        const rsp = await usermodel.updateOne({name:name},
+                                         {$push:{ searchHistory: `summary : ${text}`}})
+        //console.log("history : "+name+ " text : "+`summary : ${text}`);
+    } catch (error) {
+        console.log("Error while maintaining History");
+    }
 })
 
 router.post("/createContent" , async (req,res)=>{
-    console.log("provide text to generate content");
+    //console.log("provide text to generate content");
     
     const text = req.body.text;
 
@@ -72,16 +86,25 @@ router.post("/createContent" , async (req,res)=>{
         res.json({status:"fail" , output_contentText:"Invalid operation"})
     }
 
-
+    // storing history
+    const user = getUser(req.cookies.UID);
+    const name = user.name;
+    try {
+        const rsp = await usermodel.updateOne({name:name},
+                                         {$push:{ searchHistory: `content : ${text}`}})
+        //console.log("history : "+name+ " text : "+`summary : ${text}`);
+    } catch (error) {
+        console.log("Error while maintaining History");
+    }
 
 })
 
 
-router.post("/ImgToText" , async (req,res)=>{
-    console.log("Provide img file to convert in text");
+router.post("/textToImg" , async (req,res)=>{
+    //console.log("Provide img file to convert in text");
 
     const txt = req.body.txt;
-     console.log("txt :" +txt);
+     //console.log("txt :" +txt);
 
     const prompt_ = {     
         sync_mode: true,
@@ -103,59 +126,24 @@ router.post("/ImgToText" , async (req,res)=>{
 
     if(resp_){
         res.json({status:"ok" , output_contentText:resp_});
-        console.log("AI responce ____________________ : "+resp_);
+        //console.log("AI responce ____________________ : "+resp_);
     }else{
         res.json({status:"fail" , output_contentText:"Invalid operation"})
     }
 
-
-})
-
-
-
-router.post("/ImgToText2" , async (req,res)=>{
-    console.log("Provide img file to convert in text");
-
-    const txt = req.body.txt;
-     console.log("txt :" +txt);
-
-    const prompt_ = {     response_format: "b64_json",
-        prompt: `"\"${txt}\""`,
-        model: "stabilityai/stable-diffusion-xl-base-1.0"
+    // storing history
+    const user = getUser(req.cookies.UID);
+    const name = user.name;
+    try {
+        const rsp = await usermodel.updateOne({name:name},
+                                         {$push:{ searchHistory: `image : ${txt}`}})
+        //console.log("history : "+name+ " text : "+`summary : ${text}`);
+    } catch (error) {
+        console.log("Error while maintaining History");
     }
 
-    
-    const AIresponse = await fetch("https://router.huggingface.co/nscale/v1/images/generations",{
-    method:"POST",
-    headers:{
-        "Content-Type":"application/json",
-        "Authorization":`Bearer ${huggingfaceToken}`
-    },
-    body:JSON.stringify(prompt_)
 })
 
-
-    const resp_ = await AIresponse.json();
-
-    if(resp_){
-        res.json({status:"ok" , output_contentText:resp_});
-        console.log("AI responce ____________________ : "+resp_);
-    }else{
-        res.json({status:"fail" , output_contentText:"Invalid operation"})
-    }
-
-
-})
-
-router.post("/ImgToText" , async (req,res)=>{
-    console.log("Provide audio file to convert in text");
-})
-
-
-
-router.post("/ImgToText" , async (req,res)=>{
-    console.log("Provide audio file to convert in text");
-})
 
 
 module.exports = router;
