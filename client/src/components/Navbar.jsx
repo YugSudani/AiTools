@@ -33,7 +33,7 @@ const Navbar=()=>{
     //   setIslogin(false);
     // }
      const sName =sessionStorage.getItem('name');
-    if(sName !== "user"){
+    if(sName !== "user" && sName !== null ){
         const name = sName.split(/[0-9]/)
         setUserName(name !=null ? name[0]:'user');
         if(name){
