@@ -33,12 +33,13 @@ router.post('/login', async (req,res)=>{
         if(uid){
             setUser(uid,user);
             // res.cookie("UID",uid);
-            res.cookie("UID",uid,{
-                //httpOnly: true,
-                secure: true,  
-                sameSite: 'None',
-                maxAge: 24 * 60 * 60 * 1000
-            })
+             res.cookie('UID',UID , 
+                         {
+                          httpOnly: true,
+                          secure: true,  // if deployed over https
+                          sameSite: 'None',
+                          maxAge: 24 * 60 * 60 * 1000
+                          });   
         }
         res.json({msg:"ok", userID:user._id}); // here not findOne but user._id is generating error while user=null
         
