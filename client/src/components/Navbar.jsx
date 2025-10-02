@@ -12,21 +12,35 @@ const Navbar=()=>{
   const handleClose = () => setIsOpen(false);
 
   const handleLogout=()=>{
-    document.cookie = "UID =; expires=Thu, 01 Jan 2005 00:00:00 UTC; path=/;";
+    // document.cookie = "UID =; expires=Thu, 01 Jan 2005 00:00:00 UTC; path=/;";
+    // setIslogin(false);
+    // setUserName('user');
+    sessionStorage.setItem("name","user");
     setIslogin(false);
-    setUserName('user');
+    // document.cookie = "UID=; expires=Thu, 01 Jan 2005 00:00:00 UTC; path=/;";
+    window.location.reload();
   }
 
   const [isLogin,setIslogin] = useState(false);
   const location = useLocation(); 
 
   useEffect(()=>{
-    if(document.cookie.includes("UID=")){
-      setIslogin(true);
-      const name = sessionStorage.getItem('name')?.split(/[0-9]/)
-      setUserName(name !=null ? name[0]:'user');
-    }else{
-      setIslogin(false);
+    // if(document.cookie.includes("UID=")){
+    //   setIslogin(true);
+    //   const name = sessionStorage.getItem('name')?.split(/[0-9]/)
+    //   setUserName(name !=null ? name[0]:'user');
+    // }else{
+    //   setIslogin(false);
+    // }
+     const sName =sessionStorage.getItem('name');
+    if(sName !== "user"){
+        const name = sName.split(/[0-9]/)
+        setUserName(name !=null ? name[0]:'user');
+        if(name){
+          setIslogin(true);
+        }else{
+          setIslogin(false);
+        }
     }
   },[location]) //using to update because navbar is alredy mounted so will not be updated
   
