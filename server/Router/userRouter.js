@@ -58,5 +58,8 @@ router.post('/login', async (req,res)=>{
     }
 });
 
+router.post('/pingTest', async(req,res)=>{
+    res.status(200).json({msg:'ok'});
+})
 
 module.exports = router;
