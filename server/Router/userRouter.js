@@ -58,7 +58,7 @@ router.post('/login', async (req,res)=>{
     }
 });
 
-router.post('/pingTest', async(req,res)=>{
+router.head('/pingTest', async(req,res)=>{
     res.status(200).json({msg:'ok'});
 })
 
