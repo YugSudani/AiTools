@@ -20,6 +20,7 @@ const Signup = () => {
     setFormData({...formData , [e.target.name]:e.target.value});
   }
 
+  const [isLoading,setIsLoading] = useState(false);
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
@@ -29,6 +30,7 @@ const Signup = () => {
     }else{
     
     try {
+      setIsLoading(true);
       const baseURL = process.env.REACT_APP_BaseURL;
       const response = await fetch(`${baseURL}/user/signup` ,{
         method:"POST",
@@ -50,6 +52,8 @@ const Signup = () => {
       }
     } catch (error) {
       console.log("Some error occured in signup");
+    }finally{
+      setIsLoading(false);
     }
   }
     
@@ -75,6 +79,7 @@ const Signup = () => {
           <input type="password"  onChange={handleChange} name="cpwd" placeholder="Confirm password" required />
 
           <p style={{'textAlign':'center','color':'red'}}>{msg}</p>
+          { isLoading?<><span class="loader"></span><p style={{'textAlign':'center'}}>Processing please Wait</p></>:""}
           <button type="submit">Sign Up</button>
           <p className="login-link">
             Already have an account?  <Link to="/login">Login</Link>
