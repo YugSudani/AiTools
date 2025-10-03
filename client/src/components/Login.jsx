@@ -21,11 +21,14 @@ const Login = () => {
     setFormData({...formData , [e.target.name]:e.target.value});
   }
 
+  const [isLoading,setIsLoading] = useState(false);
+  
   const handleSubmit=async(e)=>{
     e.preventDefault();
     // console.log(formData);
 
     try {
+      setIsLoading(true);
       const baseURL = process.env.REACT_APP_BaseURL;
       const response = await fetch(`${baseURL}/user/login` ,{
         method:"POST",
@@ -50,6 +53,8 @@ const Login = () => {
 
     } catch (error) {
       console.log("Some error occured in login");
+    }finally{
+      setIsLoading(false);
     } 
   }
 
@@ -66,7 +71,8 @@ const Login = () => {
 
           <label htmlFor="password">Password</label>
           <input type="password" onChange={handleChange} name="pwd" placeholder="Enter password" required />
-
+          
+          { isLoading?<><span class="loader"></span><p style={{'textAlign':'center'}}>Processing please Wait</p></>:""}
           <button type="submit">Login</button>
 
           <p className="login-link">
