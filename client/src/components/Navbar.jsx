@@ -11,13 +11,17 @@ const Navbar=()=>{
   const handleToggle = () => setIsOpen(!isOpen);
   const handleClose = () => setIsOpen(false);
 
-  const handleLogout=()=>{
-    // document.cookie = "UID =; expires=Thu, 01 Jan 2005 00:00:00 UTC; path=/;";
-    // setIslogin(false);
-    // setUserName('user');
+  const baseURL = process.env.REACT_APP_BaseURL;
+  const handleLogout=async()=>{
+    // deleting cookie
+    await fetch(`${baseURL}/user/logout`,{
+            method:"get",
+            credentials: 'include',
+        });
+    // remove session welcome name
     sessionStorage.setItem("name","user");
+    // show login insted logout
     setIslogin(false);
-    // document.cookie = "UID=; expires=Thu, 01 Jan 2005 00:00:00 UTC; path=/;";
     window.location.reload();
   }
 
