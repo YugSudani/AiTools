@@ -17,8 +17,9 @@ function isAdmin(req,res,next)
 
     const adminEmail = process.env.adminEmail;
     
-    if(user.email === adminEmail)
-    next();
+    if(user.email === adminEmail){
+        return next();
+    }
 
 }
 
