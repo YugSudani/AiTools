@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const usermodel = require("../models/usermodel");
-const  { v4 : uuidv4 } = require('uuid');
 const { setUser,getUser } = require("../services/userMap");
 const bcrypt = require('bcrypt');
 
