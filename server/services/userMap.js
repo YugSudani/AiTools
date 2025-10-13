@@ -3,17 +3,18 @@ const secret = process.env.jwtSecretKey;
 
 function setUser(user){        // will create and return JWT using secret key
     return jwt.sign({
-        _id:user._id,
-        email:user.email
-    },
-       secret
+          _id:user._id,    //payload
+          email:user.email
+        },
+      secret ,
+      {expiresIn:'1d'}              // key
     )
 }
 
 function getUser(uid){
     if(!uid) return null;
     try {
-        return jwt.verify(uid,secret);
+        return jwt.verify(uid,secret); // it will return decoded payload
 
     } catch (error) {
         return null;        
