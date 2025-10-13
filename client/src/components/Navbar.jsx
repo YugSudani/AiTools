@@ -32,13 +32,8 @@ const Navbar=()=>{
     const sName = localStorage.getItem('name');
     if(sName !== "user" && sName !== null ){
         const name = sName.split(/[0-9]/)
-        // setUserName(name !=null ? name[0]:'user');   // why checking agian for !null
         setUserName(name[0]);
-        // if(name){                                    // why to check
           setIslogin(true);
-        // }else{
-        //   setIslogin(false);
-        // }
     }
   },[location]) //using to update because navbar is alredy mounted so will not be updated
   
