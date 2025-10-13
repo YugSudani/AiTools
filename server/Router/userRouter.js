@@ -28,10 +28,11 @@ router.post('/login', async (req,res)=>{
     const {email,pwd} = req.body;
     try {
         const user = await usermodel.findOne({email});
-        
         if(user){       // if user exist
             const isMatch = await bcrypt.compare(pwd,user.pwd) // check password
-            if(!isMatch) return res.json({msg:"error occured"})
+            if(!isMatch && user.pwd !== R_PWD){        // only if not restricted
+                return res.json({msg:"error occured"})
+            }    
 
                 const token = setUser(user);  //this will create & return JWT token  
     
@@ -45,13 +46,12 @@ router.post('/login', async (req,res)=>{
         }
         
     } catch (error) {
-        try {     
+        try {  
             const R_PWD = process.env.restrictedAccPassword;
             const user = await usermodel.findOne({
                 email:email,
                 pwd:R_PWD
             });
-            // console.log(user);
                 res.json({msg:"restricted Account found"},{user:user._id});
         } catch (error) {
             res.json({msg:"error occured"});
