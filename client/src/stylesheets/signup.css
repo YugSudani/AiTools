@@ -1,0 +1,140 @@
+:root {
+  --bg: #0f1222;
+  --surface: #161a2f;
+  --surface-2: #1c2140;
+  --text: #e8eaf6;
+  --muted: #a8adcc;
+  --primary: #7c5cff;
+  --primary-700: #6748f5;
+  --border: #2a315a;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.signup-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 0%, #131737 0%, #0d1020 70%), var(--bg);
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 400px; /* default for mobile/tablet */
+  padding: 20px;
+}
+
+/* ✅ Make form wider on laptops/desktops */
+@media (min-width: 992px) {
+  .signup-container {
+    max-width: 600px; /* adjust to taste: 550–700px works well */
+  }
+}
+
+.signup-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signup-form h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.signup-form .subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.signup-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.signup-form input {
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.signup-form input::placeholder {
+  color: var(--muted);
+}
+
+.signup-form button {
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--primary), var(--primary-700));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(124, 92, 255, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.signup-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(124, 92, 255, 0.45);
+}
+
+.login-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.login-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+
+/* Loader */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: rgba(91, 52, 246, 0.45);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-left:45.3%;
+    }
+
+  @media only screen and (max-width:600px) {
+    .loader{
+      margin-left:41%;
+    }
+  }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 

@@ -1,0 +1,100 @@
+.admin-panel {
+  padding: 40px;
+  font-family: "Inter", sans-serif;
+  background: var(--bg, #0f1222);
+  color: var(--text, #e8eaf6);
+}
+
+.admin-panel h2 {
+  margin-bottom: 24px;
+  color: var(--primary, #7c5cff);
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-card {
+  background: var(--surface, #161a2f);
+  border: 1px solid var(--border, #2a315a);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-header strong {
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.user-header p {
+  font-size: 0.9rem;
+  color: var(--muted, #a8adcc);
+}
+
+.user-header button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.user-header button:hover {
+  background: #e03c3c;
+}
+
+.user-history {
+  margin-top: 16px;
+  padding-left: 10px;
+}
+
+.user-history h4 {
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.user-history ul {
+  list-style: disc;
+  padding-left: 20px;
+  color: var(--text);
+}
+
+/* ✨ Scroll animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.see-history {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.see-history:hover {
+  color: #a78bff;
+}
