@@ -16,11 +16,9 @@ function isAdmin(req,res,next)
     }
 
     const adminEmail = process.env.adminEmail;
-    const adminPassword = process.env.adminPassword;
     
-    if(user.email === adminEmail && user.pwd === adminPassword)
+    if(user.email === adminEmail)
     next();
-    // console.log("Allowing cookie : "+cookie+ " map : "+user)
 
 }
 
