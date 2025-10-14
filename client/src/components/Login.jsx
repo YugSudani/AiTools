@@ -46,6 +46,7 @@ const Login = () => {
 
       if(res.msg === 'OTP_sent'){
         succ('OTP Sent Succsessfuly');
+        Warn('Check Spam section if Needed')
       }else if(res.msg === 'invalid user'){
         Err('Invalid User');
         Warn('Signup First');
@@ -119,7 +120,7 @@ const Login = () => {
           <button style={{width:'40%'}} type="button" onClick={handleGetOtp}>Get Otp</button>
 
           {/* <label htmlFor="password">OTP</label> */}
-          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" name="otp" placeholder="Enter OTP"/>
+          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" name="otp" placeholder="Enter OTP ( Check Spam box)"/>
           
           { isSendingOtp?<><span className="loaderOTP"></span><p style={{'textAlign':'center'}}> Sending OTP</p></>:""}
 

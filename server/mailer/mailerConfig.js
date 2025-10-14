@@ -1,18 +1,9 @@
 import nodemailer from 'nodemailer';
 
 export const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  service: 'SendGrid',
   auth: {
-    user: process.env.OTP_Email_ID,
-    pass: process.env.OTP_Email_pwd
-  },
+    user: 'apikey', // literally the string 'apikey'
+    pass: process.env.SENDGRID_API_KEY
+  }
 });
-
-
-// service:'gmail',
-// auth:{
-//     user:process.env.OTP_Email_ID,
-//     pass:process.env.OTP_Email_pwd
-// }
