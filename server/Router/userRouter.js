@@ -48,22 +48,23 @@ router.post('/send_otp', async (req,res)=>{
         await transporter.sendMail({
             to:email,
             subject:'OTP For AItools',
-            html: `
-    <p>Dear User,</p>
-    <p>Your One-Time Password (OTP) for accessing <strong>AItools</strong> is:</p>
-    <h2 style="color:#2e86de;">🔐 ${OTP}</h2>
-    <p>This OTP is valid for the next <strong>5 minutes</strong>. Please do not share it with anyone.</p>
-    <p>If you did not request this OTP, please ignore this message or contact our support team immediately.</p>
-    <br>
-    <p>Visit us here : https://aitools-bs8f.onrender.com </p>
-    <br>
-    <p>Thank you,<br>The AItools Team</p>
-  `
+            text:'testing email , SMTP works'
+            //             html: `
+//     <p>Dear User,</p>
+//     <p>Your One-Time Password (OTP) for accessing <strong>AItools</strong> is:</p>
+//     <h2 style="color:#2e86de;">🔐 ${OTP}</h2>
+//     <p>This OTP is valid for the next <strong>5 minutes</strong>. Please do not share it with anyone.</p>
+//     <p>If you did not request this OTP, please ignore this message or contact our support team immediately.</p>
+//     <br>
+//     <p>Visit us here : https://aitools-bs8f.onrender.com </p>
+//     <br>
+//     <p>Thank you,<br>The AItools Team</p>
+//   `
         });
         res.json({msg:'OTP_sent'});
     } catch (error) {
-        
-        res.json({msg:'failed_to_sent_OTP'})
+        console.error("SMTP test error:", error);
+        res.json({msg:'failed_to_sent_OTP', err:error.message })
     }
 
 });
