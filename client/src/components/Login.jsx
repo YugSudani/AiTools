@@ -118,14 +118,14 @@ const Login = () => {
 
           <button style={{width:'40%'}} type="button" onClick={handleGetOtp}>Get Otp</button>
 
-          <label htmlFor="password">OTP</label>
+          {/* <label htmlFor="password">OTP</label> */}
           <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" name="otp" placeholder="Enter OTP"/>
           
           { isSendingOtp?<><span className="loaderOTP"></span><p style={{'textAlign':'center'}}> Sending OTP</p></>:""}
 
           <b align='center'>Or use password</b>
 
-          <label htmlFor="password">Password</label>
+          {/* <label htmlFor="password">Password</label> */}
           <input type="password" onChange={handleChange} name="pwd" placeholder="Enter password" />
 
 

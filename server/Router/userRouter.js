@@ -62,6 +62,7 @@ router.post('/send_otp', async (req,res)=>{
         });
         res.json({msg:'OTP_sent'});
     } catch (error) {
+        
         res.json({msg:'failed_to_sent_OTP'})
     }
 
