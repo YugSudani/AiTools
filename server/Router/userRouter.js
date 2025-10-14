@@ -33,6 +33,15 @@ router.post('/send_otp', async (req,res)=>{
     if(!user){
         return res.status(404).json({msg:'invalid user'})
     }
+
+    // limiting otp
+        const now = Date.now();
+
+        if (user.otpExpires && user.otpExpires > now) {
+            const remaining = Math.ceil((user.otpExpires - now) / 1000);
+            return res.status(429).json({ msg:"limitOtp" ,timeLeft: `${remaining}` });
+        }
+
     try {
 
         const OTP = GenerateOTP();

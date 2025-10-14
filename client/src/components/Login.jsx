@@ -50,6 +50,9 @@ const Login = () => {
       }else if(res.msg === 'invalid user'){
         Err('Invalid User');
         Warn('Signup First');
+      }else if(res.msg="limitOtp"){
+        Warn("OTP alredy sent");
+        Warn(` wait for ${res.timeLeft} seconds`)
       }else{
         Err('Something went wrong');
         Warn('try to login with password');
