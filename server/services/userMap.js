@@ -11,10 +11,10 @@ function setUser(user){        // will create and return JWT using secret key
     )
 }
 
-function getUser(uid){
-    if(!uid) return null;
+function getUser(token){
+    if(!token) return null;
     try {
-        return jwt.verify(uid,secret); // it will return decoded payload
+        return jwt.verify(token,secret); // it will return decoded payload
 
     } catch (error) {
         return null;        

@@ -77,6 +77,7 @@ button:hover {
 .output-box {
   margin-top: 30px;
   padding: 20px;
+  text-align: start;
   background: var(--surface);
   border: 1px dashed var(--border);
   border-radius: var(--radius);

@@ -138,3 +138,46 @@
         transform: rotate(360deg);
     }
     } 
+
+.loaderOTP {
+  width: 48px;
+  height: 48px;
+    margin-left:45.3%;
+  border-radius: 50%;
+  display: inline-block;
+  border: 10px solid;
+  border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  animation: rotation 0.9s linear infinite;
+}
+
+
+@media only screen and (max-width:600px) {
+  .loaderOTP{
+    margin-left:41%;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
+.input_otp{
+  letter-spacing: 4.5vw;
+}
+
+.input_otp::placeholder {
+  letter-spacing: normal; /* or 0px */
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+

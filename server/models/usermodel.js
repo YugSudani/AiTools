@@ -13,9 +13,18 @@ const userSchema = new mongoose.Schema({
     pwd:{
         type:String,
         required:true
-    },searchHistory:{
+    },
+    searchHistory:{
         type:[String],
         default:[]
+    },
+    otp:{
+        type:String,
+        // default:'##**$_default@@@###k93'
+        default:null
+    },
+    otpExpires:{
+        type:Date
     }
 }, {timestamps:true} );
 

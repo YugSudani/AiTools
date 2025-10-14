@@ -3,6 +3,8 @@ const router = express.Router();
 const usermodel = require("../models/usermodel");
 const { setUser,getUser } = require("../services/userMap");
 const bcrypt = require('bcrypt');
+const { GenerateOTP } = require('../mailer/GenerateOTP');
+const { transporter } = require('../mailer/mailerConfig');
 
 router.post('/signup', async (req,res)=>{
     //console.log("signning up");
@@ -23,16 +25,74 @@ router.post('/signup', async (req,res)=>{
 });
 
 
+router.post('/send_otp', async (req,res)=>{
+    
+    const { email } = req.body;
+    
+    const user = await usermodel.findOne({ email });
+    if(!user){
+        res.json({msg:'invalid user'})
+        return
+    }
+    try {
+
+        const OTP = GenerateOTP();
+
+        //store otp
+        await usermodel.updateOne({email},
+            {
+                $set:{otp:OTP , otpExpires: Date.now() + 5 * 60 * 1000}
+            }
+        )
+
+        //send email
+        await transporter.sendMail({
+            to:email,
+            subject:'OTP For AItools',
+            html: `
+    <p>Dear User,</p>
+    <p>Your One-Time Password (OTP) for accessing <strong>AItools</strong> is:</p>
+    <h2 style="color:#2e86de;">🔐 ${OTP}</h2>
+    <p>This OTP is valid for the next <strong>5 minutes</strong>. Please do not share it with anyone.</p>
+    <p>If you did not request this OTP, please ignore this message or contact our support team immediately.</p>
+    <br>
+    <p>Visit us here : https://aitools-bs8f.onrender.com </p>
+    <br>
+    <p>Thank you,<br>The AItools Team</p>
+  `
+        });
+    } catch (error) {
+        res.json({msg:'failed_to_sent_OTP'})
+    }
+
+    res.json({msg:'OTP_sent'});
+});
+
 router.post('/login', async (req,res)=>{
    
-    const {email,pwd} = req.body;
+    const {email,pwd,otp} = req.body;
     try {
         const user = await usermodel.findOne({email});
+
         if(user){       // if user exist
-            const isMatch = await bcrypt.compare(pwd,user.pwd) // check password
-            if(!isMatch && user.pwd !== R_PWD){        // only if not restricted
-                return res.json({msg:"error occured"})
-            }    
+
+            if (!pwd && !otp) {
+                return res.json({msg:"use OTPorPWD"});
+            }
+
+
+            if(otp != ''){ // login with OTP
+                if(!user.otp || user.otp !== otp || Date.now() > user.otpExpires ){        //check expiry
+                    return res.json({msg:"error occured otp"})
+                }    
+            }
+
+            if(pwd != ''){ // login with password
+                const isMatch = await bcrypt.compare(pwd,user.pwd) // check password
+                if(!isMatch && user.pwd !== R_PWD){        // only if not restricted
+                    return res.json({msg:"error occured"})
+                }    
+            }
 
                 const token = setUser(user);  //this will create & return JWT token  
     

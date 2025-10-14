@@ -151,8 +151,8 @@ html, body {
 .summary-placeholder {
   min-height: 290px;
   display: grid;
-  place-items: center;
-  text-align: center;
+  place-items: start;
+  text-align: start;
   color: var(--muted);
   padding: 16px;
   border: 1px dashed var(--border);

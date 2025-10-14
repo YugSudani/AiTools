@@ -9,20 +9,63 @@ const Login = () => {
 
   const Warn=(msg)=> toast.warning(msg);
   const Err=(msg)=> toast.error(msg);
+  const succ=(msg)=> toast.success(msg);
 
  const navigate = useNavigate();
 
  const [formData,setFormData] = useState({
     email:"",
-    pwd:""
+    pwd:"",
+    otp:""
   });
 
   const handleChange=(e)=>{
     setFormData({...formData , [e.target.name]:e.target.value});
   }
 
-  const [isLoading,setIsLoading] = useState(false);
   
+  const [isSendingOtp,setIsSendingOtp] = useState(false);
+
+  const handleGetOtp=async()=>{
+    
+    const e_mail = formData.email;
+    const baseURL = process.env.REACT_APP_BaseURL;
+    
+    try {
+        setIsSendingOtp(true)
+        const response = await fetch(`${baseURL}/user/send_otp`,{
+        method:'POST',
+        credentials:'include',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({'email':e_mail})
+      })
+
+      const res = await response.json();
+
+      if(res.msg === 'OTP_sent'){
+        succ('OTP Sent Succsessfuly');
+      }else if(res.msg === 'invalid user'){
+        Err('Invalid User');
+        Warn('Signup First');
+      }else{
+        Err('Something went wrong');
+        Warn('try to login with password');
+      }
+    } catch (error) {
+        Err('Something went wrong');        
+    }finally{
+      setIsSendingOtp(false);
+    }
+  
+  }
+
+  
+
+
+  const [isLoading,setIsLoading] = useState(false);
+
   const handleSubmit=async(e)=>{
     e.preventDefault();
     // console.log(formData);
@@ -46,13 +89,17 @@ const Login = () => {
         localStorage.setItem("name",formData.email);
         navigate("/");
       }else if(res.msg === "restricted Account found"){
-        Warn("Your Account has been Restricted by Admin (📱->Support) ")
+        Warn("Your Account has been Restricted 📱Support : 9510502422 📞 ")
       }else if(res.msg === "error occured"){
         Warn("invalid email or password")
+      }else if (res.msg === "error occured otp"){
+        Warn("Invalid or Expired OTP")
+      }else if(res.msg === "use OTPorPWD"){
+        Warn("Use OTP or Password For Login")
       }
 
     } catch (error) {
-      console.log("Some error occured in login");
+      Err("Something Went wrong . . .");
     }finally{
       setIsLoading(false);
     } 
@@ -69,9 +116,19 @@ const Login = () => {
           <label htmlFor="email">Email</label>
           <input type="email" onChange={handleChange} name="email" placeholder="Enter your email" required />
 
-          <label htmlFor="password">Password</label>
-          <input type="password" onChange={handleChange} name="pwd" placeholder="Enter password" required />
+          <button style={{width:'40%'}} type="button" onClick={handleGetOtp}>Get Otp</button>
+
+          <label htmlFor="password">OTP</label>
+          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" name="otp" placeholder="Enter OTP"/>
           
+          { isSendingOtp?<><span className="loaderOTP"></span><p style={{'textAlign':'center'}}> Sending OTP</p></>:""}
+
+          <b align='center'>Or use password</b>
+
+          <label htmlFor="password">Password</label>
+          <input type="password" onChange={handleChange} name="pwd" placeholder="Enter password" />
+
+
           { isLoading?<><span className="loader"></span><p style={{'textAlign':'center'}}>Processing please Wait</p></>:""}
           <button type="submit">Login</button>
 
