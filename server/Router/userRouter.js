@@ -83,7 +83,9 @@ router.post('/login', async (req,res)=>{
     const {email,pwd,otp} = req.body;
     try {
         const user = await usermodel.findOne({email});
-
+        if(!user){
+            return res.status(404).json({msg:'invalid user'})
+        }
         if(user){       // if user exist
 
             if (!pwd && !otp) {

@@ -94,6 +94,9 @@ const Login = () => {
         navigate("/");
       }else if(res.msg === "restricted Account found"){
         Warn("Your Account has been Restricted 📱Support : 9510502422 📞 ")
+      }else if(res.msg === 'invalid user'){
+        Err('Invalid User');
+        Warn('Signup First');
       }else if(res.msg === "error occured"){
         Warn("invalid email or password")
       }else if (res.msg === "error occured otp"){
