@@ -71,6 +71,7 @@ const handleResetPwd=async()=>{
       setMsg("Password & Confirm password not matching");
     }else{
       try {
+            setMsg(null);
             setIsloading(true)
             const response = await fetch(`${baseURL}/AI/resetPWD`, {
                 method:"post",
@@ -85,7 +86,10 @@ const handleResetPwd=async()=>{
               succ("password reseted successfully");
           }else if(res.msg === 'notLogin'){
               Err('Login to Reset Password');
-          }else if(res.msg === 'error'){
+          }else if(res.msg === 'falsePWD'){
+              Warn('Old Password is Not Correct')
+          }
+          else if(res.msg === 'error'){
               Warn('Something Went Wrong');
           }
       } catch (error) {

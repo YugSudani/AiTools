@@ -209,6 +209,8 @@ router.post('/resetPWD', async (req,res)=>{
         }catch (error) {
             return res.json({msg:'error'});
         }
+    }else{
+        res.json({msg:'falsePWD'})
     }
 });
 

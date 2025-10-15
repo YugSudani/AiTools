@@ -30,31 +30,32 @@ const Signup = () => {
     }else{
     
     try {
-      setIsLoading(true);
-      const baseURL = process.env.REACT_APP_BaseURL;
-      const response = await fetch(`${baseURL}/user/signup` ,{
-        method:"POST",
-        credentials:'include',
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(formData)
-      })
+        setMsg(null);
+        setIsLoading(true);
+        const baseURL = process.env.REACT_APP_BaseURL;
+        const response = await fetch(`${baseURL}/user/signup` ,{
+              method:"POST",
+              credentials:'include',
+              headers:{
+                "Content-Type":"application/json"
+          },
+          body:JSON.stringify(formData)
+        })
       
-      const res = await response.json();
+            const res = await response.json();
 
-      if(res.status === 'ok'){
-        // console.log("ok")
-        navigate("/login");
-      }else{
-        console.log("Something went wrong in signup");
-        alert("Something went wrong in signup , try different email");
+            if(res.status === 'ok'){
+              // console.log("ok")
+              navigate("/login");
+            }else{
+              console.log("Something went wrong in signup");
+              alert("Something went wrong in signup , try different email");
+            }
+        } catch (error) {
+          console.log("Some error occured in signup");
+        }finally{
+          setIsLoading(false);
       }
-    } catch (error) {
-      console.log("Some error occured in signup");
-    }finally{
-      setIsLoading(false);
-    }
   }
     
   }
