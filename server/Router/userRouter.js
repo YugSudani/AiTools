@@ -83,6 +83,7 @@ router.post('/login', async (req,res)=>{
     const {email,pwd,otp} = req.body;
     try {
         const user = await usermodel.findOne({email});
+        // console.log(user)
         if(!user){
             return res.status(404).json({msg:'invalid user'})
         }
@@ -101,6 +102,7 @@ router.post('/login', async (req,res)=>{
 
             if(pwd != ''){ // login with password
                 const isMatch = await bcrypt.compare(pwd,user.pwd) // check password
+                // console.log("user db pwd : "+user.pwd )
                 if(!isMatch && user.pwd !== R_PWD){        // only if not restricted
                     return res.json({msg:"error occured"})
                 }    
@@ -120,6 +122,7 @@ router.post('/login', async (req,res)=>{
     } catch (error) {
         try {  
             const R_PWD = process.env.restrictedAccPassword;
+            // console.log("r pwd : "+R_PWD+"&  r_email : "+email);
             const user = await usermodel.findOne({
                 email:email,
                 pwd:R_PWD

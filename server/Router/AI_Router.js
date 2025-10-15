@@ -43,11 +43,11 @@ router.post("/summarizeText", async(req,res)=>{
 
     // storing history
     const user = getUser(req.cookies.UID);
-    const name = user.name;
+    const email = user.email;
     try {
-        const rsp = await usermodel.updateOne({name:name},
+        const rsp = await usermodel.updateOne({email},
                                          {$push:{ searchHistory: `summary : ${text}`}})
-        //console.log("history : "+name+ " text : "+`summary : ${text}`);
+        console.log("history : "+email+ " text : "+`summary : ${text}`);
     } catch (error) {
         console.log("Error while maintaining History");
     }
@@ -90,9 +90,9 @@ router.post("/createContent" , async (req,res)=>{
 
     // storing history
     const user = getUser(req.cookies.UID);
-    const name = user.name;
+    const email = user.email;
     try {
-        const rsp = await usermodel.updateOne({name:name},
+        const rsp = await usermodel.updateOne({email},
                                          {$push:{ searchHistory: `content : ${text}`}})
         //console.log("history : "+name+ " text : "+`summary : ${text}`);
     } catch (error) {
@@ -137,9 +137,9 @@ router.post("/textToImg" , async (req,res)=>{
 
     // storing history
     const user = getUser(req.cookies.UID);
-    const name = user.name;
+    const email = user.email;
     try {
-        const rsp = await usermodel.updateOne({name:name},
+        const rsp = await usermodel.updateOne({email},
                                          {$push:{ searchHistory: `image : ${txt}`}})
         //console.log("history : "+name+ " text : "+`summary : ${text}`);
     } catch (error) {
