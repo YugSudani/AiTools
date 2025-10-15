@@ -45,22 +45,22 @@ const Login = () => {
       const res = await response.json();
 
       if(res.msg === 'OTP_sent'){
-        succ('OTP Sent Succsessfuly');
-        Warn('Check Spam section if Needed')
-      }else if(res.msg === 'invalid user'){
-        Err('Invalid User');
-        Warn('Signup First');
+          succ('OTP Sent Succsessfuly');
+          Warn('Check Spam section if Needed')
+      }else if(res.msg === 'invalid/restricted user'){
+          Err('Invalid or Restricted User');
+          Warn('Signup First');
       }else if(res.msg="limitOtp"){
-        Warn("OTP alredy sent");
-        Warn(` wait for ${res.timeLeft} seconds`)
+          Warn("OTP alredy sent");
+          Warn(` wait for ${res.timeLeft} seconds`)
       }else{
-        Err('Something went wrong');
-        Warn('try to login with password');
+          Err('Something went wrong');
+          Warn('try to login with password');
       }
     } catch (error) {
-        Err('Something went wrong');        
+          Err('Something went wrong');        
     }finally{
-      setIsSendingOtp(false);
+          setIsSendingOtp(false);
     }
   
   }

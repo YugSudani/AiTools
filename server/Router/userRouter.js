@@ -28,19 +28,20 @@ router.post('/signup', async (req,res)=>{
 router.post('/send_otp', async (req,res)=>{
     
     const { email } = req.body;
+    const R_PWD = process.env.restrictedAccPassword;
     
+    // if user exists
     const user = await usermodel.findOne({ email });
-    if(!user){
-        return res.status(404).json({msg:'invalid user'})
+    if(!user || user.pwd === R_PWD){
+        return res.status(404).json({msg:'invalid/restricted user'})
     }
 
     // limiting otp
-        const now = Date.now();
-
-        if (user.otpExpires && user.otpExpires > now) {
-            const remaining = Math.ceil((user.otpExpires - now) / 1000);
-            return res.status(429).json({ msg:"limitOtp" ,timeLeft: `${remaining}` });
-        }
+    const now = Date.now();
+    if (user.otpExpires && user.otpExpires > now) {
+        const remaining = Math.ceil((user.otpExpires - now) / 1000);
+        return res.status(429).json({ msg:"limitOtp" ,timeLeft: `${remaining}` });
+    }
 
     try {
 
@@ -95,7 +96,7 @@ router.post('/login', async (req,res)=>{
 
 
             if(otp != ''){ // login with OTP
-                if(!user.otp || user.otp !== otp || Date.now() > user.otpExpires ){        //check expiry
+                if(!user.otp || user.otp !== otp || Date.now() > user.otpExpires ){     
                     return res.json({msg:"error occured otp"})
                 }    
             }
