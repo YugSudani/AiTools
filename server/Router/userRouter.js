@@ -16,7 +16,8 @@ router.post('/signup', async (req,res)=>{
         const response = await usermodel.create({
             name,
             email,
-            pwd:hashedPwd
+            pwd:hashedPwd,
+            tokens:55
         });
         res.json({status:"ok", userID:response._id});
     } catch (error) {
@@ -134,6 +135,7 @@ router.post('/login', async (req,res)=>{
         }
     }
 });
+
 
 router.get('/logout', async (req,res)=>{
     res.clearCookie('UID', {

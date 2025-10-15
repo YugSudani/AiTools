@@ -11,6 +11,27 @@ router.post("/summarizeText", async(req,res)=>{
     //console.log("Provide input to summarize");
     const text = req.body.text
     
+    // check in enough token , deducting token and storing history 
+    const user = getUser(req.cookies.UID);
+    const email = user.email;
+    try {
+        const responce = await usermodel.findOneAndUpdate(
+                            {email , tokens : { $gte:2 } },
+                            {
+                                $inc :{ tokens: -2 },
+                                $push:{ searchHistory: `Summary : ${text}`}
+                            },
+                            { new:true }
+                        );
+            if(!responce){
+                return res.json({msg:'noEnough_Tokens'})
+            }
+    } catch (error) {
+        console.log("Error while maintaining History"+ error);
+    }
+    
+    
+    
     const prompt = {
         "messages": [
             {
@@ -31,7 +52,7 @@ router.post("/summarizeText", async(req,res)=>{
         body:JSON.stringify(prompt)
     })
 
-    resp_ = await AIresponse.json();
+    const resp_ = await AIresponse.json();
 
     if(resp_){
         res.json({status:"ok" , output_summary:resp_});
@@ -40,25 +61,34 @@ router.post("/summarizeText", async(req,res)=>{
         res.json({status:"fail" , output_summary:"Invalid operation"})
     }
 
-
-    // storing history
-    const user = getUser(req.cookies.UID);
-    const email = user.email;
-    try {
-        const rsp = await usermodel.updateOne({email},
-                                         {$push:{ searchHistory: `summary : ${text}`}})
-        console.log("history : "+email+ " text : "+`summary : ${text}`);
-    } catch (error) {
-        console.log("Error while maintaining History");
-    }
 })
 
 
 
 router.post("/createContent" , async (req,res)=>{
     //console.log("provide text to generate content");
-    
     const text = req.body.text;
+    
+    // check in enough token , deducting token and storing history 
+    const user = getUser(req.cookies.UID);
+    const email = user.email;
+    try {
+        const responce = await usermodel.findOneAndUpdate(
+                            {email , tokens : { $gte:2 } },
+                            {
+                                $inc :{ tokens: -2 },
+                                $push:{ searchHistory: `Content : ${text}`}
+                            },
+                            { new:true }
+                        );
+            if(!responce){
+                return res.json({msg:'noEnough_Tokens'})
+            }
+    } catch (error) {
+        console.log("Error while maintaining History");
+    }
+
+
 
     const prompt = {
         "messages": [
@@ -88,17 +118,6 @@ router.post("/createContent" , async (req,res)=>{
         res.json({status:"fail" , output_contentText:"Invalid operation"})
     }
 
-    // storing history
-    const user = getUser(req.cookies.UID);
-    const email = user.email;
-    try {
-        const rsp = await usermodel.updateOne({email},
-                                         {$push:{ searchHistory: `content : ${text}`}})
-        //console.log("history : "+name+ " text : "+`summary : ${text}`);
-    } catch (error) {
-        console.log("Error while maintaining History");
-    }
-
 })
 
 
@@ -106,8 +125,29 @@ router.post("/createContent" , async (req,res)=>{
 
 router.post("/textToImg" , async (req,res)=>{
     //console.log("Provide img file to convert in text");
-
     const txt = req.body.txt;
+
+    // check in enough token , deducting token and storing history 
+    const user = getUser(req.cookies.UID);
+    const email = user.email;
+    try {
+        const responce = await usermodel.findOneAndUpdate(
+                            {email , tokens : { $gte:5 } },
+                            {
+                                $inc :{ tokens: -5 },
+                                $push:{ searchHistory: `Image : ${text}`}
+                            },
+                            { new:true }
+                        );
+            if(!responce){
+                return res.json({msg:'noEnough_Tokens'})
+            }
+    } catch (error) {
+        console.log("Error while maintaining History");
+    }
+    
+
+
      //console.log("txt :" +txt);
 
     const prompt_ = {     
@@ -135,18 +175,22 @@ router.post("/textToImg" , async (req,res)=>{
         res.json({status:"fail" , output_contentText:"Invalid operation"})
     }
 
-    // storing history
+})
+
+router.get('/getUserInfo' , async (req,res)=>{
+
     const user = getUser(req.cookies.UID);
     const email = user.email;
-    try {
-        const rsp = await usermodel.updateOne({email},
-                                         {$push:{ searchHistory: `image : ${txt}`}})
-        //console.log("history : "+name+ " text : "+`summary : ${text}`);
+
+    try {   
+        const userData = await usermodel.findOne({email});
+        res.json({msg:'ok', user:userData});
     } catch (error) {
-        console.log("Error while maintaining History");
+        res.json({msg:'error_Fetching_data'});
     }
 
-})
+
+});
 
 
 

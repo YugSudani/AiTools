@@ -35,7 +35,11 @@ const ContentCreation=()=>{
             {
                 setOutput(res.output_contentText.choices[0]?.message.content);
                 //console.log(res.output_contentText)
-            }else if(res.msg === "notLogin"){     // from middleware
+            }else if(res.msg === "noEnough_Tokens"){
+                Warn('Oops Token Quota Exhausted🪙');
+                Warn('Buy Now From Profile');
+            }
+            else if(res.msg === "notLogin"){     // from middleware
                 Warn("Login to Proceed");
             }
             else{
@@ -70,7 +74,7 @@ const ContentCreation=()=>{
                 <main className="container content-section">
                     <h4 className="section-title">📝 AI Content Creation</h4>
                     <p className="section-subtitle">Create content here and let AI do the writing magic.</p>
-
+                    <b style={{color:'skyblue'}}>  🪙 2 Tokens Will be Deducted Per Prompt</b>
                     <textarea name="txt" id="input-text" onChange={handleChange} placeholder="Type your idea or prompt here..."></textarea>
 
                     <button onClick={handleSubmit} id="submit-btn">Send Text</button>

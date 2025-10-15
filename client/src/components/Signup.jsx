@@ -25,7 +25,7 @@ const Signup = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     //console.log(formData);
-    if(formData.pwd != formData.cpwd){
+    if(formData.pwd !== formData.cpwd){
       setMsg("Password & Confirm password not matching");
     }else{
     
@@ -64,7 +64,7 @@ const Signup = () => {
       <div className="signup-container">
         <form onSubmit={handleSubmit} method="post" className="signup-form">
           <h2>Create Account</h2>
-          <p className="subtitle">Join AI Tools and unlock the power of AI</p>
+          <p className="subtitle">Join AI Tools and unlock the power of AI<p style={{color:'green',fontSize:'16px'}}>(Get 55 Free Tokens)</p></p>
 
           <label htmlFor="name">Full Name</label>
           <input type="text" onChange={handleChange} name="name" placeholder="Enter your name" required />

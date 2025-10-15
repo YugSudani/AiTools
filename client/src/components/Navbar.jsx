@@ -42,6 +42,7 @@ const Navbar=()=>{
       <div className="container header-inner">
         <div className="logo">AI<span>Tools</span></div>
         <p style={{'color':'white','marginRight':'-10vw','fontWeight': '600'}}>Welcome, {userName}</p>
+
         <button
           className="menu-toggle"
           aria-label="Toggle menu"
@@ -65,6 +66,7 @@ const Navbar=()=>{
               <li><Link className="Link" to="/login" onClick={handleClose}>Login</Link></li>
             }
           
+            <li><Link className="Link" to="/profile" onClick={handleClose}>Profile</Link></li>
           </ul>
         </nav>
       </div>

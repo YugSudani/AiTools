@@ -37,7 +37,11 @@ const ImgToText=()=>{
                 {
                     setOutput(res.output_contentText.images[0]?.url); //1
                     // console.log(res.output_contentText)
-                }else if(res.msg === "notLogin"){     // from middleware
+                }else if(res.msg === "noEnough_Tokens"){
+                    Warn('Oops Token Quota Exhausted🪙');
+                    Warn('Buy Now From Profile');
+                }
+                else if(res.msg === "notLogin"){     // from middleware
                     Warn("Login to Proceed");
                 }else{
                     Err("Something went Wrong");
@@ -58,7 +62,7 @@ const ImgToText=()=>{
             <main className="container content-section">
                 <h4 className="section-title">🎨 AI Image Generator</h4>
                 <p className="section-subtitle">Write your prompt below and generate an image.</p>
-
+                <b style={{color:'skyblue'}}>  🪙 5 Tokens Will be Deducted Per Prompt</b>
                 <input type="text" id="prompt" onChange={handleChange} placeholder="Describe the image you want..." />
 
                 <button id="generate-btn" onClick={handleSubmit}>Generate</button>

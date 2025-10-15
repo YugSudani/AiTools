@@ -8,6 +8,7 @@ import Footer from "./components/Footer"
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Admin from "./components/ADMIN/Admin";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="text-img" element={<ImgToText />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="admin" element={<Admin />} />
       </Routes>
       <Footer/>

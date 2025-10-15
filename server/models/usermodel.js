@@ -20,11 +20,14 @@ const userSchema = new mongoose.Schema({
     },
     otp:{
         type:String,
-        // default:'##**$_default@@@###k93'
         default:null
     },
     otpExpires:{
         type:Date
+    },
+    tokens:{
+        type:Number,
+        default:0
     }
 }, {timestamps:true} );
 

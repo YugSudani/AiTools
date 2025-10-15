@@ -34,7 +34,11 @@ const Summarize=()=>{
             {
                 setOutputSummary(res.output_summary.choices[0]?.message.content);
                 // console.log(res.output_summary)
-            }else if(res.msg === "notLogin"){     // from middleware
+            }else if(res.msg === "noEnough_Tokens"){
+                Warn('Oops Token Quota Exhausted🪙');
+                Warn('Buy Now From Profile');
+            }
+            else if(res.msg === "notLogin"){     // from middleware
                 Warn("Login to Proceed");
             }else{
                 Err("Something went Wrong");
@@ -72,6 +76,7 @@ const Summarize=()=>{
                 Transform lengthy texts into concise, meaningful summaries using advanced AI technology.
                 Perfect for articles, documents, research papers, and more.
               </p>
+              <b style={{color:'skyblue'}}>  🪙 2 Tokens Will be Deducted Per Prompt</b>
             </header>
 
             <main className="grid">

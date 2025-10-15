@@ -1,0 +1,235 @@
+:root {
+  --bg: #0f1222;
+  --surface: #161a2f;
+  --surface-2: #1c2140;
+  --text: #e8eaf6;
+  --muted: #a8adcc;
+  --primary: #7c5cff;
+  --primary-700: #6748f5;
+  --border: #2a315a;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.profile-page {
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 0%, #131737 0%, #0d1020 70%), var(--bg);
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-wrapper {
+  display: flex;
+  gap: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  max-width: 1000px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Left Column */
+.profile-sidebar {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+}
+
+.profile-sidebar h2 {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.role {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.token-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.token-label {
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.buy-link {
+  font-size: 0.85rem;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.buy-link:hover {
+  color: #a78bff;
+}
+
+/* Logout button at bottom */
+.logout-wrapper {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+.logout-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Right Column */
+.profile-main {
+  flex: 2;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-section h3 {
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.profile-section label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.profile-section input {
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.profile-section input::placeholder {
+  color: var(--muted);
+}
+
+.primary-btn {
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--primary), var(--primary-700));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(124, 92, 255, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(124, 92, 255, 0.45);
+}
+
+/* ✨ Scroll animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 24px 12px;
+  }
+
+  .profile-wrapper {
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .profile-sidebar {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .profile-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profile-section {
+    width: 100%;
+    max-width: 100%;
+    gap: 10px;
+  }
+
+  .profile-section input,
+  .primary-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .token-label {
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .buy-link {
+    font-size: 0.8rem;
+  }
+
+  .logout-btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
