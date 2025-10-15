@@ -3,13 +3,15 @@ import '../stylesheets/signup.css'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-
+import { useRef } from "react";
 
 const Login = () => {
 
   const Warn=(msg)=> toast.warning(msg);
   const Err=(msg)=> toast.error(msg);
   const succ=(msg)=> toast.success(msg);
+  
+  const otpRef = useRef(null);
 
  const navigate = useNavigate();
 
@@ -61,6 +63,9 @@ const Login = () => {
           Err('Something went wrong');        
     }finally{
           setIsSendingOtp(false);
+          if (otpRef.current) {
+          otpRef.current.focus();
+          }
     }
   
   }
@@ -126,7 +131,7 @@ const Login = () => {
           <button style={{width:'40%'}} type="button" onClick={handleGetOtp}>Get Otp</button>
 
           {/* <label htmlFor="password">OTP</label> */}
-          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" name="otp" placeholder="Enter OTP ( Check Spam box)"/>
+          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" ref={otpRef} name="otp" placeholder="Enter OTP ( Check Spam box)"/>
           
           { isSendingOtp?<><span className="loaderOTP"></span><p style={{'textAlign':'center'}}> Sending OTP</p></>:""}
 
