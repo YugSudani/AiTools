@@ -139,33 +139,42 @@
     }
     } 
 
-.loaderOTP {
-  width: 48px;
-  height: 48px;
-    margin-left:45.3%;
-  border-radius: 50%;
-  display: inline-block;
-  border: 10px solid;
-  border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
-  box-sizing: border-box;
-  animation: rotation 0.9s linear infinite;
-}
 
+
+
+.loaderOTP {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6748f5;
+  position: relative;
+  margin-left: 47%;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+}
+.loaderOTP:before,
+.loaderOTP:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 0;
+  background: #fff;
+  transform: rotate(0deg) translate(30px);
+  animation: rotate 1s ease infinite;
+}
+.loaderOTP:after {
+  animation-delay: 0.5s
+}
+@keyframes rotate {
+  100% {transform: rotate(360deg) translate(30px)
+}}
+    
 
 @media only screen and (max-width:600px) {
   .loaderOTP{
-    margin-left:41%;
+    margin-left:45%;
   }
 }
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-} 
 
 .input_otp{
   letter-spacing: 4.5vw;

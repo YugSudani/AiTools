@@ -131,7 +131,7 @@ const Login = () => {
           <button style={{width:'40%'}} type="button" onClick={handleGetOtp}>Get Otp</button>
 
           {/* <label htmlFor="password">OTP</label> */}
-          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" ref={otpRef} name="otp" placeholder="Enter OTP ( Check Spam box)"/>
+          <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} onChange={handleChange} className="input_otp" ref={otpRef} name="otp" placeholder="Enter OTP ( Check Spam box )"/>
           
           { isSendingOtp?<><span className="loaderOTP"></span><p style={{'textAlign':'center'}}> Sending OTP</p></>:""}
 

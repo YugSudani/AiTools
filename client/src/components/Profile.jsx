@@ -11,9 +11,11 @@ const Profile = () => {
 
     const baseURL = process.env.REACT_APP_BaseURL;
     const [userData,setUserData] = useState(null);
+    const [isLoading,setIsloading] = useState(false)
 
     const getUserData=async()=>{
         try {
+            setIsloading(true);
             const res = await fetch(`${baseURL}/AI/getUserInfo` , {
                 method:"get",
                 credentials:'include'
@@ -29,13 +31,14 @@ const Profile = () => {
         } catch (error) {
             Err("Something Went Wrong")
             Warn("Try Re-Login");
+        }finally{
+          setIsloading(false);
         }
     }
 
     useEffect(()=>{
             getUserData();
     },[])
-
 
   const handleLogout=async()=>{
     // deleting cookie
@@ -50,6 +53,49 @@ const Profile = () => {
     window.location.reload();
   }
 
+  const [msg,setMsg] = useState(null);
+
+  const [pwdData,setPwdData] = useState({
+    oldPwd:"",
+    newPwd:"",
+    newCpwd:""
+  });
+
+  const handlePwdChange=(e)=>{
+      setPwdData({...pwdData , [e.target.name]:e.target.value });
+  }
+
+const handleResetPwd=async()=>{
+
+    if(pwdData.newPwd !== pwdData.newCpwd){
+      setMsg("Password & Confirm password not matching");
+    }else{
+      try {
+            setIsloading(true)
+            const response = await fetch(`${baseURL}/AI/resetPWD`, {
+                method:"post",
+                credentials:'include',
+                headers:{
+                  'Content-Type':'application/json'
+                },
+                body:JSON.stringify(pwdData)
+            });
+          const res = await response.json();
+          if(res.msg === 'ok'){
+              succ("password reseted successfully");
+          }else if(res.msg === 'notLogin'){
+              Err('Login to Reset Password');
+          }else if(res.msg === 'error'){
+              Warn('Something Went Wrong');
+          }
+      } catch (error) {
+          Warn('Something Went Wrong');
+      }finally{
+        setIsloading(false);
+      }
+  }
+
+}
 
   return (
     <main className="profile-page">
@@ -85,11 +131,13 @@ const Profile = () => {
           </div>
 
           <div className="profile-section">
-            <h3>Reset Password</h3>
-            <input type="password" placeholder="Old password" />
-            <input type="password" placeholder="New password" />
-            <input type="password" placeholder="Confirm password" />
-            <button className="primary-btn">Reset Password</button>
+            <h3>Reset Password 🔒</h3>
+            <input type="password" onChange={handlePwdChange} name='oldPwd' placeholder="Old password" />
+            <input type="password" onChange={handlePwdChange} name='newPwd' placeholder="New password" />
+            <input type="password" onChange={handlePwdChange} name='newCpwd' placeholder="Confirm password" />
+            {isLoading? <span class="loader__"></span>: null}
+            <p style={{'textAlign':'center','color':'red'}}>{msg}</p>
+            <button className="primary-btn" onClick={handleResetPwd}>Reset Password</button>
           </div>
         </section>
       </div>
