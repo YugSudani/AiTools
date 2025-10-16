@@ -26,11 +26,13 @@ app.use(cors({
 
 const AI_Router = require("./Router/AI_Router");
 const userrouter = require('./Router/userRouter');
+const profileRouter = require('./Router/profileRouter');
 const adminRouter = require('./Router/adminRouter');
 const isLogin = require("./middlewares/isLogin");
 const isAdmin = require('./middlewares/isAdmin');
 
 app.use("/user",userrouter);
+app.use("/profile",isLogin,profileRouter);
 app.use("/AI",isLogin,AI_Router); // summary router constains all AI API
 app.use("/admin",isAdmin,adminRouter); 
 

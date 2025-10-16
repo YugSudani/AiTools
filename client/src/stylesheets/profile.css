@@ -286,3 +286,40 @@
   }
 }
     
+
+.hist_main_container{
+  padding: 1%;
+  padding-top: 55%;
+  margin: 0 0 0 0;
+  /* border: 2px solid; */
+  height: 40vh;
+  width: 20vw;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow-y: auto;
+  text-align: start;
+}
+
+@media (max-width: 768px) {
+    .hist_main_container{
+      width: 90vw;
+      height: auto;
+    }
+}
+
+.hist_main_container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.p_hist{
+  margin: 1%;
+  background-color: #0e1227;
+  border-radius: 10px;
+  padding: 1%;
+  padding-left: 3%;
+  height: 25vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

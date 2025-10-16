@@ -16,7 +16,7 @@ const Profile = () => {
     const getUserData=async()=>{
         try {
             setIsloading(true);
-            const res = await fetch(`${baseURL}/AI/getUserInfo` , {
+            const res = await fetch(`${baseURL}/profile/getUserInfo` , {
                 method:"get",
                 credentials:'include'
             })    
@@ -38,6 +38,7 @@ const Profile = () => {
 
     useEffect(()=>{
             getUserData();
+            getHistory();
     },[])
 
   const handleLogout=async()=>{
@@ -73,7 +74,7 @@ const handleResetPwd=async()=>{
       try {
             setMsg(null);
             setIsloading(true)
-            const response = await fetch(`${baseURL}/AI/resetPWD`, {
+            const response = await fetch(`${baseURL}/profile/resetPWD`, {
                 method:"post",
                 credentials:'include',
                 headers:{
@@ -97,9 +98,28 @@ const handleResetPwd=async()=>{
       }finally{
         setIsloading(false);
       }
-  }
-
+  } 
 }
+
+
+  const [histData,setHistData] = useState(null);
+
+  const getHistory=async()=>{
+    const hist = await fetch(`${baseURL}/profile/getHistory` , {
+      method:"get",
+      credentials:'include'
+    });
+
+    const data = await hist.json();
+    if(data.msg === 'ok'){
+      setHistData(data.histData.searchHistory);
+    }else if(data.msg === 'error'){
+      Warn('Error Fetching History');
+    }else{
+      Warn('Error Fetching History');
+    }
+
+  }
 
   return (
     <main className="profile-page">
@@ -117,6 +137,15 @@ const handleResetPwd=async()=>{
           <div className="token-section">
             <div className="token-label">🪙 {userData !== null ? userData.user.tokens : '0'} Tokens Remaining</div>
             <a href="#" className="buy-link">🤖 Buy Tokens Now</a>
+          </div>
+
+              <h2>History</h2>
+          <div className="hist_main_container">
+               {
+                    histData?.length > 0 ? histData.map((n,idx)=>{
+                        return <p className="p_hist" key={idx} >{idx+1} . {n}</p>
+                    }) : 'No History yet'
+               }
           </div>
 
           <div className="logout-wrapper">
