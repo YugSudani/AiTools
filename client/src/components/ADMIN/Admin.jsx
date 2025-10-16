@@ -34,7 +34,7 @@ const Admin = () => {
                 }
             };
 
-            const [isLoading,setIsLoading] = useState(true);
+            const [isLoading,setIsLoading] = useState(false);
             const [allUsers,setAllUser] = useState(null);
 
             const fetchAllUser=async()=>{
@@ -58,7 +58,7 @@ const Admin = () => {
                 } catch (error) {
                     alert("Error fetching User");   
                 }finally{
-                    // setIsLoading(false);
+                    setIsLoading(false);
                 }
             }
 
