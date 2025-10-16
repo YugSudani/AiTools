@@ -139,14 +139,23 @@ const handleResetPwd=async()=>{
             <a href="#" className="buy-link">🤖 Buy Tokens Now</a>
           </div>
 
-              <h2>History</h2>
-          <div className="hist_main_container">
-               {
-                    histData?.length > 0 ? histData.map((n,idx)=>{
-                        return <p className="p_hist" key={idx} >{idx+1} . {n}</p>
-                    }) : 'No History yet'
-               }
-          </div>
+         <h3 className="hist_title">History</h3>
+        <div className={`hist_main_container ${histData?.length === 0 ? 'empty' : ''}`}>
+          {histData?.length > 0 ? (
+            histData.map((n, idx) => (
+              <p
+                className="p_hist"
+                style={{ animationDelay: `${idx * 100}ms` }}
+                key={idx}
+              >
+                {idx + 1}. {n}
+              </p>
+            ))
+          ) : (
+            <p className="no_hist_msg">No History yet</p>
+          )}
+        </div>
+
 
           <div className="logout-wrapper">
             <button className="logout-btn" onClick={handleLogout}>Logout</button>

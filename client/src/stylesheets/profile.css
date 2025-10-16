@@ -286,40 +286,96 @@
   }
 }
     
-
-.hist_main_container{
-  padding: 1%;
-  padding-top: 55%;
-  margin: 0 0 0 0;
-  /* border: 2px solid; */
-  height: 40vh;
+/* Main history container */
+.hist_main_container {
+  padding: 2% 3%;
+  margin: 0;
+  height: auto;
+  max-height: 40vh;
   width: 20vw;
   display: flex;
-  /* align-items: center; */
-  justify-content: center;
   flex-direction: column;
   border-radius: 10px;
   overflow-y: auto;
   text-align: start;
+
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  transition: max-height 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .hist_main_container{
-      width: 90vw;
-      height: auto;
-    }
+/* Reduced height when empty */
+.hist_main_container.empty {
+  max-height: 12vh;
 }
 
+/* Hide scrollbar */
 .hist_main_container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
-.p_hist{
-  margin: 1%;
+/* History item animation */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Individual history block */
+.p_hist {
+  margin: 1% 0;
   background-color: #0e1227;
   border-radius: 10px;
-  padding: 1%;
-  padding-left: 3%;
-  height: 25vh;
+  padding: 2% 4%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.95rem;
+
+  animation-name: fadeSlideUp;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+/* Empty message styling */
+.no_hist_msg {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Title styling */
+.hist_title {
+  font-size: 1.2rem;
+  margin-bottom: 1%;
+  color: #ccc;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+  .hist_main_container {
+    width: 80vw;
+    padding: 0% 0%;
+    max-height: 50vh;
+    text-align: start;
+  }
+
+  .hist_main_container.empty {
+    max-height: 15vh;
+  }
+
+  .hist_title {
+    margin-left: 40%;
+    text-align: center;
+  }
+
+  .p_hist {
+    font-size: 0.9rem;
+    padding: 3% 5%;
+    margin: 2% 0;
+  }
 }
