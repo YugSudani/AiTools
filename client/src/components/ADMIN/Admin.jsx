@@ -58,7 +58,7 @@ const Admin = () => {
                 } catch (error) {
                     alert("Error fetching User");   
                 }finally{
-                    setIsLoading(false);
+                    // setIsLoading(false);
                 }
             }
 
@@ -71,8 +71,8 @@ const Admin = () => {
                 <div className="admin-panel">
                 <h2>Admin Panel</h2>
 
-                { isLoading ? <><span class="loaderAdmin"></span><br />
-                <span class="loaderAdmin"></span></>: null}
+                { isLoading ? <><div class="loader_"></div><br />
+                <div class="loader_"></div></>: null}
 
                 <div className="user-list">
                     {allUsers?.map((user) => (
