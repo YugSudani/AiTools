@@ -34,9 +34,12 @@ const Admin = () => {
                 }
             };
 
+            const [isLoading,setIsLoading] = useState(true);
             const [allUsers,setAllUser] = useState(null);
+
             const fetchAllUser=async()=>{
                 try {
+                    setIsLoading(true);
                     const response = await fetch(`${baseURL}/admin/fetchEntireHistory`,{
                         method:"GET",
                         credentials:'include'
@@ -54,6 +57,8 @@ const Admin = () => {
 
                 } catch (error) {
                     alert("Error fetching User");   
+                }finally{
+                    setIsLoading(false);
                 }
             }
 
@@ -65,6 +70,10 @@ const Admin = () => {
             return (
                 <div className="admin-panel">
                 <h2>Admin Panel</h2>
+
+                { isLoading ? <><span class="loaderAdmin"></span><br />
+                <span class="loaderAdmin"></span></>: null}
+
                 <div className="user-list">
                     {allUsers?.map((user) => (
                     <div className="user-card fade-in" key={user._id}>

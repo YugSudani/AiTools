@@ -103,21 +103,30 @@ const handleResetPwd=async()=>{
 
 
   const [histData,setHistData] = useState(null);
-
+  const [isLoadingTop,setIsLoadingTop] = useState(false);
   const getHistory=async()=>{
-    const hist = await fetch(`${baseURL}/profile/getHistory` , {
-      method:"get",
-      credentials:'include'
-    });
 
-    const data = await hist.json();
-    if(data.msg === 'ok'){
-      setHistData(data.histData.searchHistory);
-    }else if(data.msg === 'error'){
-      Warn('Error Fetching History');
-    }else{
-      Warn('Error Fetching History');
+    try {
+          setIsLoadingTop(true);
+            const hist = await fetch(`${baseURL}/profile/getHistory` , {
+            method:"get",
+            credentials:'include'
+          });
+
+          const data = await hist.json();
+          if(data.msg === 'ok'){
+            setHistData(data.histData.searchHistory);
+          }else if(data.msg === 'error'){
+            Warn('Error Fetching History');
+          }else{
+            Warn('Error Fetching History');
+          }  
+    } catch (error) {
+          Err('Error Fetching History');
+    }finally{
+         setIsLoadingTop(false);
     }
+    
 
   }
 
@@ -133,6 +142,8 @@ const handleResetPwd=async()=>{
             className="avatar"
           />
           <h2>Hello , {userData !== null ? userData.user.name : 'user'}</h2>
+
+          {isLoadingTop ? <span class="loaderTop"></span>: null}
 
           <div className="token-section">
             <div className="token-label">🪙 {userData !== null ? userData.user.tokens : '0'} Tokens Remaining</div>
