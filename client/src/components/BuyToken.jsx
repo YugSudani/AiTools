@@ -37,7 +37,7 @@ const BuyTokens = () => {
 
   return (
     <main className="buy-page">
-      <h2>Buy Tokens 🪙</h2>
+      <h2>Tokens Store 🪙</h2>
 
       <div className="token-row">
         {tokenPackages.map((pkg, index) => (
