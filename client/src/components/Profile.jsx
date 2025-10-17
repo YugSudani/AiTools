@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../stylesheets/profile.css";
 import { ToastContainer, toast } from 'react-toastify';
 const pIMG = require('../imgs/profile.png');
+const { Link } = require('react-router-dom')
 
 const Profile = () => {
     
@@ -147,7 +148,7 @@ const handleResetPwd=async()=>{
 
           <div className="token-section">
             <div className="token-label">🪙 {userData !== null ? userData.user.tokens : '0'} Tokens Remaining</div>
-            <a href="#" className="buy-link">🤖 Buy Tokens Now</a>
+            <Link className="buy-btn" to="../buytokens" >🤖 Buy Tokens Now</Link>
           </div>
 
          <h3 className="hist_title">History</h3>

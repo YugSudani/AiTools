@@ -1,0 +1,145 @@
+:root {
+  --bg: #0f1222;
+  --surface: #161a2f;
+  --surface-2: #1c2140;
+  --text: #e8eaf6;
+  --muted: #a8adcc;
+  --primary: #7c5cff;
+  --primary-700: #6748f5;
+  --border: #2a315a;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.buy-page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 40px 20px;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+}
+
+.buy-page h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 30px;
+}
+
+.token-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.token-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 200px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.token-card h3 {
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.buy-btn {
+  margin-top: auto;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--primary), var(--primary-700));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.buy-btn:hover {
+  transform: translateY(-2px);
+}
+
+.summary-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: var(--shadow);
+}
+
+.summary-panel h3 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.summary-row.total {
+  font-weight: 700;
+  color: var(--primary);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.qr-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.qr-box img {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.qr-box p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ✨ Scroll animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .token-card {
+    width: 100%;
+  }
+
+  .summary-panel {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .qr-box img {
+    width: 140px;
+    height: 140px;
+  }
+}
