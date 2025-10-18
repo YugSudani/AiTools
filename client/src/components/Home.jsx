@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import '../stylesheets/Home.css'
 import { Link } from "react-router-dom";
+import aiIMG from '../imgs/aiIMG.webp'
 
 const Home=()=>{
+
+    const [heroLoading,setHeroLoading] = useState(true);
 
     return(
         <>
@@ -18,13 +21,18 @@ const Home=()=>{
                 <Link to="/summarize" className="btn btn-primary">Get Started</Link>
               </div>
               <div className="hero-graphic">
-                {/* <!-- Placeholder for future image/graphic --> */}
-                <div className="graphic-placeholder"></div>
+                  <img 
+                        className="graphic-placeholder" 
+                        src={aiIMG}
+                        alt="AI Tools" 
+                        onLoad={()=>setHeroLoading(false)}
+                  />
+                        {heroLoading ? <span class="loader_hero"></span> : null }
               </div>
             </div>
           </section>
 
-          {/* <!-- Features Section --> */}
+          {/* <!-- Features  --> */}
           <section className="features container">
             <h2 className="section-title">Our Tools</h2>
             <div className="features-grid">

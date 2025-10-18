@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "../stylesheets/buyToken.css";
-const QRcode = require("../imgs/QRcode.png");
+const QRcode = require("../imgs/QRcode.webp");
 
 const tokenPackages = [
   { id:0 , amount: 50, bonus: "5", price: 49 },
@@ -33,12 +33,12 @@ const BuyTokens = () => {
         setTotal(pack.price-pack.bonus);
     },[pack])
 
-
+  
 
   return (
     <main className="buy-page">
-      <h2>Tokens Store 🪙</h2>
-
+      <h2>Token Store 🪙</h2>
+            
       <div className="token-row">
         {tokenPackages.map((pkg, index) => (
           <div className="token-card fade-in" key={pkg.id}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../stylesheets/profile.css";
 import { ToastContainer, toast } from 'react-toastify';
-const pIMG = require('../imgs/profile.png');
+const pIMG = require('../imgs/profile.webp');
 const { Link } = require('react-router-dom')
 
 const Profile = () => {
@@ -68,7 +68,6 @@ const Profile = () => {
   }
 
 const handleResetPwd=async()=>{
-
     if(pwdData.newPwd !== pwdData.newCpwd){
       setMsg("Password & Confirm password not matching");
     }else{

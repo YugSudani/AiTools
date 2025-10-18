@@ -81,7 +81,6 @@ body {
 .graphic-placeholder {
   width: 40vw;
   height: 35vh;
-  background-image: url('../imgs/aiIMG.jpg');
   background-size: cover;
   border-radius: 10px;
 }
@@ -132,3 +131,35 @@ body {
     color: white;
     
 }
+
+
+.loader_hero{
+      width: 40vw;
+      height: 35vh;
+      border-radius: 10px;
+      background:
+          linear-gradient(0.25turn, transparent, #989696, transparent),
+          linear-gradient(#050c51, #010419),
+          radial-gradient(38px circle at 19px 19px, #DDD 50%, transparent 51%),
+          linear-gradient(#DDD, #DDD);
+      background-color: #fff;
+      background-repeat: no-repeat;
+      background-size: 40vw 35vh, 40vw 65vh, 100px 100px, 40vw 30px;
+      background-position: -315px 0, 0 0, 15px 140px, 65px 145px;
+      animation: loading 0.8s infinite;
+  }
+
+  @keyframes loading {
+    to {
+      background-position: 315px 0, 0 0, 15px 140px, 65px 145px;
+    }
+  }
+
+  @media only screen and (max-width:600px) {
+      .loader_hero{
+        width: 80vw;
+        height: 20vh;
+        background-size: 40vw 35vh, 85vw 35vh, 100px 100px, 40vw 30px;
+      }
+  }
+  

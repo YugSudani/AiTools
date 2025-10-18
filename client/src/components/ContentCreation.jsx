@@ -18,8 +18,7 @@ const ContentCreation=()=>{
     const baseURL = process.env.REACT_APP_BaseURL;
 
     const handleSubmit=async()=>{
-        setLoading(true);
-
+        setLoading(true);   
         try {
             const response = await fetch(`${baseURL}/AI/createContent`,{
                 method:"POST",
