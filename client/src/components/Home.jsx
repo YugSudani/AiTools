@@ -5,7 +5,6 @@ import aiIMG from '../imgs/aiIMG.webp'
 
 const Home=()=>{
 
-    const [heroLoading,setHeroLoading] = useState(true);
 
     return(
         <>
@@ -25,14 +24,11 @@ const Home=()=>{
                         className="graphic-placeholder" 
                         src={aiIMG}
                         alt="AI Tools" 
-                        onLoad={()=>setHeroLoading(false)}
                   />
-                        {heroLoading ? <span class="loader_hero"></span> : null }
               </div>
             </div>
           </section>
 
-          {/* <!-- Features  --> */}
           <section className="features container">
             <h2 className="section-title">Our Tools</h2>
             <div className="features-grid">
