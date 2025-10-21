@@ -7,7 +7,7 @@ function setUser(user){        // will create and return JWT using secret key
           email:user.email
         },
       secret ,
-      {expiresIn:'1d'}              // key
+      {expiresIn:'7d'}              // key
     )
 }
 

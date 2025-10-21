@@ -116,7 +116,7 @@ router.post('/login', async (req,res)=>{
                     httpOnly: true,
                     secure: true,  // if deployed over https
                     sameSite: 'None',
-                    maxAge: 24 * 60 * 60 * 1000
+                    maxAge: 7 * 24 * 60 * 60 * 1000
                 });
                 res.json({msg:"ok", userID:user._id}); // not findOne but user._id is generating error while user=null
         }
