@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link,useLocation } from "react-router-dom";
 import '../stylesheets/navbar.css'
+import Pwa from "./Pwa";
 
 const Navbar=()=>{
 
@@ -41,7 +42,7 @@ const Navbar=()=>{
     <header className="site-header">
       <div className="container header-inner">
         <div className="logo">AI<span>Tools</span></div>
-        <p style={{'color':'white','marginRight':'-10vw','fontWeight': '600'}}>Welcome, {userName}</p>
+        <p style={{'color':'white','marginRight':'-5vw','fontWeight': '600'}}>Welcome, {userName}</p>
 
         <button
           className="menu-toggle"
@@ -67,6 +68,7 @@ const Navbar=()=>{
             }
           
             <li><Link className="Link" to="/profile" onClick={handleClose}>Profile</Link></li>
+            <li>{<Pwa/>}</li>
           </ul>
         </nav>
       </div>

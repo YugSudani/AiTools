@@ -24,6 +24,7 @@
 
 .nav ul {
   display: flex;
+  align-items: center;
   gap: 24px;
   list-style: none;
   margin: 0;
@@ -86,3 +87,30 @@
     padding: 16px;
   }
 }
+
+
+/* PWA button styling scoped to navbar */
+.pwa-nav-button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px 14px;        
+  margin: 0;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+/* Hover effect like nav links */
+.pwa-nav-button:hover {
+  color: var(--primary);
+}
+
+/* Ensure alignment inside <li> */
+.nav li .pwa-nav-button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
